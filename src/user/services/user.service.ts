@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/user.dto'
+import { UserDto } from '../dto/user.dto'
 import { MongoRepository } from 'typeorm'
-import { User } from './entities/user.mongo.entity';
+import { User } from '../entities/user.mongo.entity';
 
 
 type UserIdType = string | number
@@ -16,16 +16,11 @@ export class UserService {
     return ':rocket:qile' + id;
   }
 
-  createUser(userInfo:CreateUserDto) {
-    // : Partial<CreateUserDto>
-    // return {...userInfo, ...{ password: ''}};
-    return this.userRepository.save({
-      name: 'hhh',
-      email: '1@123.com'
-    })
+  createUser(userInfo:UserDto) {
+    return this.userRepository.save(userInfo)
   }
 
   findAll() {
-    return this.userRepository.findAndCount({})
+    return this.userRepository.findAndCount()
   }
 }

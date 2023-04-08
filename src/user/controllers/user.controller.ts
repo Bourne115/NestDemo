@@ -1,8 +1,8 @@
 import { Controller, Get, Query, Param, Post, Body, HttpCode, HttpStatus, HttpException } from '@nestjs/common';
-import { UserService } from './user.service'
+import { UserService } from '../services/user.service'
 
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse, ApiProperty } from '@nestjs/swagger'
-import { CreateUserDto } from './dto/user.dto'
+import { UserDto } from '../dto/user.dto'
 import { SystemService } from 'src/shared/system.service';
 import { ConfigService } from '@nestjs/config';
 
@@ -32,11 +32,19 @@ export class UserController {
   @ApiResponse( 
     {
       status: HttpStatus.OK,
-      type: CreateUserDto
+      type: UserDto
     }
   )
-  create(@Body() createUserDto:CreateUserDto) {
+  create(@Body() createUserDto:UserDto) {
     return this.userService.createUser(createUserDto)
+  }
+
+  @ApiOperation( {
+    summary: '更新用户信息'
+  })
+  @Post()
+  update() {
+
   }
 
 
